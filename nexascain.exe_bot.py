@@ -8,6 +8,8 @@ import asyncio
 import random
 import logging
 import string
+import time
+import datetime
 
 logging.basicConfig(level=logging.INFO)
 
@@ -42,6 +44,32 @@ player2total = 0
 player3total = 0
 numbOfDice = 5
 diceluckGoal = 300
+
+#TicTacToe
+tttP1 = 0
+tttP2 = 0
+tttBlank = ":black_medium_square:"
+ttt1 = tttBlank
+ttt2 = tttBlank
+ttt3 = tttBlank
+ttt4 = tttBlank
+ttt5 = tttBlank
+ttt6 = tttBlank
+ttt7 = tttBlank
+ttt8 = tttBlank
+ttt9 = tttBlank
+tttWinner = 0
+tttStart = 0
+tttTimer = 0
+tttTime = 0
+tttTimerStop = 0
+when_to_stop = 0
+
+tttLayout = """
+:one: :two: :three:
+:four: :five: :six:
+:seven: :eight: :nine:"""
+
 diceluckInstructions = """
 DiceLuck is a game where you roll dice, take chances, and gamble your points! First to %s or beyond wins!
 When it's your turn, You can either take a chance with the dice the player before you kept (along with the score they earned), or start from scratch.
@@ -66,12 +94,64 @@ However, if all five dice are held, you may roll all five dice again to have a c
 If you roll and get no points, your turn ends and you've lost all the points you gained on that turn. """
 
 
+bothelpMessage = """**-bothelp**
+(This command)
+
+**__[Game Commands]__**
+**__|WordGuess|__**
+**-WordGuess**
+(Starts the Word guess game or gives a new word)
+
+**__|Mastermind|__**
+**-Mastermind**
+(Starts a game of Mastermind)
+
+**-mm <3 digit number>**
+(Used to submit a guess to the answer for Mastermind)
+
+**__|TicTacToe|__**
+**-ttt**
+(Joins you to a game of TicTacToe if one isn't in progress)
+
+**<Number 1-9>**
+(Places your mark on that space)
+
+**__|DiceLuck|__**
+**-DiceLuck Help**
+(Shows all commands for DiceLuck)
+
+**__|Truth or Dare|__**
+**-ToD**
+(Asks the bot "Truth or Dare")
+
+**-Truth**
+(The bot will tell you the truth)
+
+**-Dare**
+(The bot will dare you... have fun!)
+
+**__[Question Commands]__**
+**-Why**
+(Ask the bot a "Why..." question)
+
+**-When**
+(Ask the bot a "When..." question)
+
+**-Will**
+(Ask the bot a "Will..." question)
+
+**__[Other Commands]__**
+**-math <Math Expression>**
+(Solves a math expression using Python supported opperations)
+(type **-bhelp math** for more info)"""
+
+
 
 words = [("GAMES", "games"),                    ("INSTAGRAM", "instagram"),             ("HELLO", "hello"),             ("FILE", "file"),
         ("MINECRAFT", "minecraft"),             ("SNAPCHAT", "snapchat"),               ("PIZZA", "pizza"),             ("STAMP", "stamp"),
         ("CHEESECAKE", "cheesecake"),           ("FACEBOOK", "facebook"),               ("DISK","disk"),                ("SWAP", "swap"),
         ("FALLOUT", "fallout"),                 ("METROID", "metroid"),                 ("PAPER", "paper"),             ("WASP", "wasp"),
-        ("ENVOLOPE", "envolope"),               ("OBSIDION", "obsidion"),               ("PHONE", "phone"),             ("ANT", "ant"),
+        ("ENVOLOPE", "envolope"),               ("OBSIDIAN", "obsidian"),               ("PHONE", "phone"),             ("ANT", "ant"),
         ("ATOMIC", "atomic"),                   ("PYTHON", "python"),                   ("CHOICE", "choice"),           ("FUN", "fun"),
         ("RADIOACTIVE", "radioactive"),         ("DETECTIVE", "detective"),             ("START", "start"),             ("SUPER", "super"),
         ("GRANDFATHER", "grandfather"),         ("BATMAN", "batman"),                   ("POWER", "power"),             ("CHAIR", "chair"),
@@ -115,6 +195,13 @@ words = [("GAMES", "games"),                    ("INSTAGRAM", "instagram"),     
 
 
 
+async def embed_this(embTITLE, embDESCRIPTION, embCOLOUR, embAUTHOR):
+    em = discord.Embed(title=embTITLE, description=embDESCRIPTION, colour=embCOLOUR)
+    em.set_author(name=embAUTHOR)
+    await bot.send_message(message.channel,content=None, embed=em)
+
+
+
 class Main_Commands():
     def __init__(self, bot):
         self.bot = bot
@@ -124,6 +211,12 @@ async def on_ready():
     print ("Ready to go Sire!")
     print ("I am rinning on " + bot.user.name)
     await bot.change_presence(game=discord.Game(name='-bothelp'))
+
+@bot.event
+async def on_member_join(member):
+    new_members_channel = member.server.default_channel
+    await bot.send_message(new_members_channel, "TEST")
+    await bot.send_message(new_members_channel, "Welcome, " + member.name + ", to Nexas' bot testing server!")
 
 
 @bot.event
@@ -184,14 +277,32 @@ async def on_message(message):
         await bot.send_message(message.channel, ":ping_pong: Pong!")
     #Info
     if message.content.upper().startswith("-INFO"):
-        await bot.send_message(message.channel, "My name is " + bot.user.name)
-        await bot.send_message(message.channel, "I was created by Nexas Cain with the help of a meme (Rab), Plater, and the encouragement from Nexas' best friends. Nexas won't admit this, but he is very greatful for all who helped!")
-        await client.send_file(discord.AppInfo.icon)
+        #await bot.send_message(message.channel, "My name is " + bot.user.name)
+        #await bot.send_message(message.channel, "I was created by Nexas Cain with the help of a meme (Rab), Plater, and the encouragement from Nexas' best friends. Nexas won't admit this, but he is very greatful for all who helped!")
+
+        em = discord.Embed(title=None, description=":video_game: I was created by Nexas Cain with the help of a meme (Rab), Plater, and the encouragement from Nexas' best friends. Nexas won't admit this, but he is very greatful for all who helped! :space_invader:", colour=0xBCAD20)
+        em.set_author(name=bot.user.name, icon_url=bot.user.avatar_url)
+        em.set_footer(text="I'm watching you %s"%(message.author.name))
+        em.set_image(url=bot.user.avatar_url)
+        await bot.send_message(message.channel,content=None, embed=em)
+
+        #await client.send_file(discord.AppInfo.icon)
 
     #User Info
     if message.content.upper().startswith("-USERINFO"):
-        args = message.content.split(" ")
-        user = discord.Member
+        user_peep = message.content[10:]
+        if user_peep != None:
+            if user_peep in message.server.members.name:
+                info_peep = user_peep
+            else:
+                info_peep = message.author
+        elif user_peep == None:
+            info_peep = message.author
+        await bot.send_message(message.channel, user_peep)
+        em = discord.Embed(title="Userinfo of %s"%(info_peep.name), description="", colour=0xBCAD20)
+        em.set_author(name=info_peep.name, icon_url=info_peep.avatar_url)
+        em.set_image(url=info_peep.avatar_url)
+        await bot.send_message(message.channel, content=None, embed=em)
 
     #Will
     if message.content.upper().startswith("-WILL"):
@@ -225,7 +336,14 @@ async def on_message(message):
     #Kill Nex
     if message.content.upper().startswith("-KILLNEX"):
         await bot.send_message(message.channel, "No, it's not my time! I need mor- ")
-        await Client.add_reaction(message, discord.Emoji.name("👍"))
+    if message.content.upper().startswith("NO, IT'S NOT MY TIME"):
+        await bot.add_reaction(message, '\N{Pistol}')
+        await bot.add_reaction(message, '\N{Dagger Knife}')
+        await bot.add_reaction(message, '\N{Bomb}')
+        await bot.add_reaction(message, '\N{Hocho}')
+        await bot.add_reaction(message, '\N{Skull}')
+        await bot.add_reaction(message, '\N{Coffin}')
+        #await bot.send_message(message.channel, "TEST")
 
     #Math
     if message.content.upper().startswith("-MATH"):
@@ -984,50 +1102,296 @@ DICELUCK Help
                 await bot.send_message(message.channel, "You are not the current player. Please wait until **" + mmplayer + "** finishes his/her game.")
 
     if message.content.upper().startswith("-BOTHELP"):
-        await bot.send_message(message.channel, """```[TEST]
--bothelp
-(This command)
+        em = discord.Embed(title="BotHelp", description=bothelpMessage, colour=0xBCAD20)
+        em.set_author(name=bot.user, icon_url=bot.user.avatar_url)
+        await bot.send_message(message.author,content=None, embed=em)
+        await bot.add_reaction(message, "\N{Eyes}")
 
-[Game Commands]
-|WordGuess|
--WordGuess
-(Starts the Word guess game or gives a new word)
+        #await bot.send_message(message.channel, """``````""")
 
-|Mastermind|
--Mastermind
-(Starts a game of Mastermind)
 
--mm <3 digit number>
-(Use to submit a guess to the answer for Mastermind)
 
-|DiceLuck|
--DiceLuck Help
-(Shows all commands for DiceLuck)
 
-|Truth or Dare|
--ToD
-(Asks the bot "Truth or Dare")
+    if message.content.upper().startswith("-TTT") or message.content.upper().startswith("-TICTACTOE"):
+        global tttP1
+        global tttP2
+        global ttt1
+        global ttt2
+        global ttt3
+        global ttt4
+        global ttt5
+        global ttt6
+        global ttt7
+        global ttt8
+        global ttt9
+        global tttStart
+        global tttPTurn
+        global tttRow1
+        global tttRow2
+        global tttRow3
+        global tttBoard
+        global tttTimer
+        global tttTimerStop
+        global when_to_stop
 
--Truth
-(The bot will tell you the truth)
+        resetTTT = message.content.upper()[5:10]
 
--Dare
-(The bot will dare you... have fun!)
+        if resetTTT == "RESET":
+            tttP1 = 0
+            tttP2 = 0
+            ttt1 = tttBlank
+            ttt2 = tttBlank
+            ttt3 = tttBlank
+            ttt4 = tttBlank
+            ttt5 = tttBlank
+            ttt6 = tttBlank
+            ttt7 = tttBlank
+            ttt8 = tttBlank
+            ttt9 = tttBlank
+            tttWinner = 0
+            tttStart = 0
+            await bot.send_message(message.channel, "The game has been reset!")
+        else:
+            if message.author.nick == None:
+                tttJoiner = message.author.name
+            else:
+                tttJoiner = message.author.nick
+            if tttP1 == 0:
+                if tttJoiner != tttP2:
+                    tttP1 = tttJoiner
+                    tttTimer = 0
+                    tttTime = 0
+                    tttTimer = 1
+                    await bot.send_message(message.channel, "Welcome to TicTacToe **" + tttP1 + "**!")
 
-[Question Commands]
--Why
-(Ask the bot a "Why..." question)
+            elif tttP2 == 0:
+                if tttJoiner != tttP1:
+                    tttP2 = tttJoiner
+                    tttTimer = 0
+                    tttTime = 0
+                    tttTimerStop = 1
+                    when_to_stop = 0
+                    await bot.send_message(message.channel, "Welcome to TicTacToe **" + tttP2 + "**!")
 
--When
-(Ask the bot a "When..." question)
+            else:
+                await bot.send_message(message.channel, "Please wait for the current game to finish.")
 
--Will
-(Ask the bot a "Wil..." question)
+            #if tttTimer == 0:
+            #    tttTimer = 1
+            #    time.time()
 
-[Other Commands]
--math <Math Expression>
-(Solves a math expression using Python supported opperations)
-(type -bhelp math for more info)```""")
+
+
+
+            if tttP1 != 0 and tttP2 != 0:
+                tttStart = 1
+                await bot.send_message(message.channel, "Let's begin **" + tttP1 + "** and **" + tttP2 + "**!")
+                tttPlayers = [tttP1,tttP2]
+                tttPTurn = random.choice(tttPlayers)
+                await bot.send_message(message.channel, "**" + tttPTurn + "** may begin! Remember, use the numbers **1-9** to mark a position!" + tttLayout)
+                #SHOW THE BLANK BOARD HERE!!!
+
+
+#    if message.content.upper().startswith("-TIME"):
+#        #global tttTimer
+#        tttTimer = 1
+#        #Time = time.time()
+#        #tttTimer = 0
+#        await bot.send_message(message.channel, "TEST TIME")
+#        when_to_stop = 10
+#        while when_to_stop > 0:
+#            if message.content.upper().startswith("-STOP"):
+#                when_to_stop = 0
+#            #await bot.send_message(message.channel, str(when_to_stop))
+#            when_to_stop -= 1
+
+    if tttTimer == 1:
+        if tttTime == 0:
+            #Time = time.sleep(5)
+
+
+
+            when_to_stop = 30
+            time_left_msg = await bot.send_message(message.channel, "Time left for another player to join: " + str(when_to_stop))
+
+            while when_to_stop > 0:
+                if tttTimerStop == 0:
+                    await bot.edit_message(time_left_msg, new_content="Time left for another player to join: " + str(when_to_stop))
+                    when_to_stop -= 1
+                    time.sleep(1)
+                else:
+                    pass
+
+            if tttTimerStop == 0:
+                tttTimer = 0
+                tttP1 = 0
+                tttP2 = 0
+                ttt1 = tttBlank
+                ttt2 = tttBlank
+                ttt3 = tttBlank
+                ttt4 = tttBlank
+                ttt5 = tttBlank
+                ttt6 = tttBlank
+                ttt7 = tttBlank
+                ttt8 = tttBlank
+                ttt9 = tttBlank
+                tttWinner = 0
+                tttStart = 0
+                await bot.edit_message(time_left_msg, "TicTacToe que has timed out!")
+
+
+    if message.content.upper().startswith("1") or message.content.upper().startswith("2") or message.content.upper().startswith("3") or message.content.upper().startswith("4") or message.content.upper().startswith("5") or message.content.upper().startswith("6") or message.content.upper().startswith("7") or message.content.upper().startswith("8") or message.content.upper().startswith("9"):
+        x1 = ":regional_indicator_x:"
+        o1 = ":regional_indicator_o:"
+        if tttStart == 1:
+            #await bot.send_message(message.channel, "TEST")
+            if message.author.nick == None:
+                tttmessager = message.author.name
+            else:
+                tttmessager = message.author.nick
+
+            if tttmessager == tttPTurn:
+                tttNumber = str(message.content[0])
+                #await bot.send_message(message.channel, tttNumber)
+                if tttNumber == "1":
+                    if ttt1 == tttBlank:
+                        if tttPTurn == tttP1:
+                            ttt1 = x1
+                            tttTurnComplete = 1
+                        elif tttPTurn == tttP2:
+                            ttt1 = o1
+                            tttTurnComplete = 1
+                    else:
+                        await bot.send_message(message.channel, "Please choose an available space")
+                elif tttNumber == "2":
+                    if ttt2 == tttBlank:
+                        if tttPTurn == tttP1:
+                            ttt2 = x1
+                            tttTurnComplete = 1
+                        elif tttPTurn == tttP2:
+                            ttt2 = o1
+                            tttTurnComplete = 1
+                    else:
+                        await bot.send_message(message.channel, "Please choose an available space")
+                elif tttNumber == "3":
+                    if ttt3 == tttBlank:
+                        if tttPTurn == tttP1:
+                            ttt3 = x1
+                            tttTurnComplete = 1
+                        elif tttPTurn == tttP2:
+                            ttt3 = o1
+                            tttTurnComplete = 1
+                    else:
+                        await bot.send_message(message.channel, "Please choose an available space")
+                elif tttNumber == "4":
+                    if ttt4 == tttBlank:
+                        if tttPTurn == tttP1:
+                            ttt4 = x1
+                            tttTurnComplete = 1
+                        elif tttPTurn == tttP2:
+                            ttt4 = o1
+                            tttTurnComplete = 1
+                    else:
+                        await bot.send_message(message.channel, "Please choose an available space")
+                elif tttNumber == "5":
+                    if ttt5 == tttBlank:
+                        if tttPTurn == tttP1:
+                            ttt5 = x1
+                            tttTurnComplete = 1
+                        elif tttPTurn == tttP2:
+                            ttt5 = o1
+                            tttTurnComplete = 1
+                    else:
+                        await bot.send_message(message.channel, "Please choose an available space")
+                elif tttNumber == "6":
+                    if ttt6 == tttBlank:
+                        if tttPTurn == tttP1:
+                            ttt6 = x1
+                            tttTurnComplete = 1
+                        elif tttPTurn == tttP2:
+                            ttt6 = o1
+                            tttTurnComplete = 1
+                    else:
+                        await bot.send_message(message.channel, "Please choose an available space")
+                elif tttNumber == "7":
+                    if ttt7 == tttBlank:
+                        if tttPTurn == tttP1:
+                            ttt7 = x1
+                            tttTurnComplete = 1
+                        elif tttPTurn == tttP2:
+                            ttt7 = o1
+                            tttTurnComplete = 1
+                    else:
+                        await bot.send_message(message.channel, "Please choose an available space")
+                elif tttNumber == "8":
+                    if ttt8 == tttBlank:
+                        if tttPTurn == tttP1:
+                            ttt8 = x1
+                            tttTurnComplete = 1
+                        elif tttPTurn == tttP2:
+                            ttt8 = o1
+                            tttTurnComplete = 1
+                    else:
+                        await bot.send_message(message.channel, "Please choose an available space")
+                elif tttNumber == "9":
+                    if ttt9 == tttBlank:
+                        if tttPTurn == tttP1:
+                            ttt9 = x1
+                            tttTurnComplete = 1
+                        elif tttPTurn == tttP2:
+                            ttt9 = o1
+                            tttTurnComplete = 1
+                    else:
+                        await bot.send_message(message.channel, "Please choose an available space")
+                else:
+                    await bot.send_message(message.channel, "Didn't work: " + tttNumber + "-" + x1 + o1 + ttt1)
+
+
+                if ttt1 == ttt2 == ttt3 == x1 or ttt1 == ttt2 == ttt3 == o1 or ttt4 == ttt5 == ttt6 == x1 or ttt4 == ttt5 == ttt6 == o1 or ttt7 == ttt8 == ttt9 == x1 or ttt7 == ttt8 == ttt9 == o1 or ttt1 == ttt4 == ttt7 == x1 or ttt1 == ttt4 == ttt7 == o1 or ttt2 == ttt5 == ttt8 == x1 or ttt2 == ttt5 == ttt8 == o1 or ttt3 == ttt6 == ttt9 == x1 or ttt3 == ttt6 == ttt9 == o1 or ttt1 == ttt5 == ttt9 == x1 or ttt1 == ttt5 == ttt9 == o1 or ttt3 == ttt5 == ttt7 == x1 or ttt3 == ttt5 == ttt7 == o1:
+                    tttWinner = tttPTurn
+                elif ttt1 != tttBlank and ttt2 != tttBlank and ttt3 != tttBlank and ttt4 != tttBlank and ttt5 != tttBlank and ttt6 != tttBlank and ttt7 != tttBlank and ttt8 != tttBlank and ttt9 != tttBlank:
+                    tttWinner = "No one"
+
+
+                if tttTurnComplete == 1:
+                    if tttPTurn == tttP1:
+                        tttPTurn = tttP2
+                    elif tttPTurn == tttP2:
+                        tttPTurn = tttP1
+                tttTurnComplete = 0
+
+                tttRow1 = ttt1+ttt2+ttt3
+                tttRow2 = ttt4+ttt5+ttt6
+                tttRow3 = ttt7+ttt8+ttt9
+                tttBoard = tttRow1 + """
+""" + tttRow2 + """
+""" + tttRow3
+
+                em = discord.Embed(title="TicTacToe", description=tttBoard,colour=0xBCAD20)
+                em.set_author(name=message.author.name, icon_url=message.author.avatar_url)
+                await bot.send_message(message.channel, content=None, embed=em)
+
+                if tttWinner != 0:
+                    await bot.send_message(message.channel, "**%s** wins! Another game is ready to be played!"%(tttWinner))
+                    tttP1 = 0
+                    tttP2 = 0
+                    ttt1 = tttBlank
+                    ttt2 = tttBlank
+                    ttt3 = tttBlank
+                    ttt4 = tttBlank
+                    ttt5 = tttBlank
+                    ttt6 = tttBlank
+                    ttt7 = tttBlank
+                    ttt8 = tttBlank
+                    ttt9 = tttBlank
+                    tttWinner = 0
+                    tttStart = 0
+                    tttTime = 0
+                    tttTimer = 0
+                    tttTimerStop = 0
+
+
+
 
 
     #WordGuess
@@ -1045,7 +1409,7 @@ DICELUCK Help
         await bot.send_message(message.channel, scrambled(unscram))
 
     if message.content.upper().startswith(word):
-        if message.author.name != "nexascain.exe":
+        if message.author.name != bot.user.name:
             await bot.send_message(message.channel, "You win! the word was " + (word))
             opt = random.choice(words)
             word = opt[0]
