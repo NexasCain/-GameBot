@@ -1475,6 +1475,6 @@ async def joined(ctx, member: discord.Member = None):
 
 
 
-bot.run("TOKEN")
+bot.run("Mzc5MDYyMzE2MDE0MTA4Njgz.DWT7HA.XezyHbsZdK36nYN_ys59kvwmdnQ")
 
 print("nexascain.exe has started successfully!")
