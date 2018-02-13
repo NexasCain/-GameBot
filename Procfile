@@ -1,1 +1,1 @@
-worker: python bot.py
+worker: python nexascain.exe_bot.py
