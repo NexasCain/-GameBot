@@ -1113,9 +1113,9 @@ DICELUCK Help
 
 
 
-    if message.content.upper().startswith("-TTT") or message.content.upper().startswith("-TICTACTOE"):
+    if message.content.upper().startswith("-TTT") or message.content.upper().startswith("-TICTACTOE"): 
         global tttP1
-        global tttP2
+        global tttP2 
         global ttt1
         global ttt2
         global ttt3
@@ -1152,7 +1152,7 @@ DICELUCK Help
             ttt9 = tttBlank
             tttWinner = 0
             tttStart = 0
-            tttTime = 0
+            #tttTime = 0
             tttTimer = 0
             tttTimerStop = 0
             await bot.send_message(message.channel, "The game has been reset!")
@@ -1164,7 +1164,7 @@ DICELUCK Help
             if tttP1 == 0:
                 if tttJoiner != tttP2:
                     tttP1 = tttJoiner
-                    tttTime = 0
+                    #tttTime = 0
                     await bot.send_message(message.channel, "Welcome to TicTacToe **" + tttP1 + "**!")
                     print ("TTT player one joined")
 
@@ -1172,7 +1172,7 @@ DICELUCK Help
                 if tttJoiner != tttP1:
                     tttP2 = tttJoiner
                     tttTimer = 0
-                    tttTime = 0
+                    #tttTime = 0
                     tttTimerStop = 1
                     when_to_stop = 0
                     await bot.send_message(message.channel, "Welcome to TicTacToe **" + tttP2 + "**!")
@@ -1188,7 +1188,7 @@ DICELUCK Help
 
 
             if tttP1 != 0 and tttP2 != 0:
-                tttStart = 1
+                tttStart = 1 
                 await bot.send_message(message.channel, "Let's begin **" + tttP1 + "** and **" + tttP2 + "**!")
                 tttPlayers = [tttP1,tttP2]
                 tttPTurn = random.choice(tttPlayers)
@@ -1211,42 +1211,42 @@ DICELUCK Help
 
     if tttTimer == 1:
         print ("Timer start")
-        if tttTime == 0:
-            #Time = time.sleep(5)
-            print ("Is this necessary?")
+        #if tttTime == 0:
+        #Time = time.sleep(5)
+        print ("Is this necessary?")
 
 
 
-            when_to_stop = 30
-            time_left_msg = await bot.send_message(message.channel, "Time left for another player to join: " + str(when_to_stop))
-            tttTimer = 0
-            print("testing why this loops three times")
+        when_to_stop = 30
+        time_left_msg = await bot.send_message(message.channel, "Time left for another player to join: " + str(when_to_stop))
+        tttTimer = 0
+        print("testing why this loops three times")
 
-            while when_to_stop > 0:
-                if tttTimerStop == 0:
-                    await bot.edit_message(time_left_msg, new_content="Time left for another player to join: " + str(when_to_stop))
-                    when_to_stop -= 1
-                    time.sleep(1)
-                else:
-                    pass
-
+        while when_to_stop > 0:
             if tttTimerStop == 0:
-                tttTimer = 0
-                tttP1 = 0
-                tttP2 = 0
-                tttBlank = ":black_medium_square:"
-                ttt1 = tttBlank
-                ttt2 = tttBlank
-                ttt3 = tttBlank
-                ttt4 = tttBlank
-                ttt5 = tttBlank
-                ttt6 = tttBlank
-                ttt7 = tttBlank
-                ttt8 = tttBlank
-                ttt9 = tttBlank
-                tttWinner = 0
-                tttStart = 0
-                await bot.edit_message(time_left_msg, "TicTacToe que has timed out!")
+                await bot.edit_message(time_left_msg, new_content="Time left for another player to join: " + str(when_to_stop))
+                when_to_stop -= 1
+                time.sleep(1)
+            else:
+                pass
+
+        if tttTimerStop == 0:
+            tttTimer = 0
+            tttP1 = 0
+            tttP2 = 0
+            tttBlank = ":black_medium_square:"
+            ttt1 = tttBlank
+            ttt2 = tttBlank
+            ttt3 = tttBlank
+            ttt4 = tttBlank
+            ttt5 = tttBlank
+            ttt6 = tttBlank
+            ttt7 = tttBlank
+            ttt8 = tttBlank
+            ttt9 = tttBlank
+            tttWinner = 0
+            tttStart = 0
+            await bot.edit_message(time_left_msg, "TicTacToe que has timed out!")
 
 
     if message.content.upper().startswith("1") or message.content.upper().startswith("2") or message.content.upper().startswith("3") or message.content.upper().startswith("4") or message.content.upper().startswith("5") or message.content.upper().startswith("6") or message.content.upper().startswith("7") or message.content.upper().startswith("8") or message.content.upper().startswith("9"):
@@ -1396,7 +1396,7 @@ DICELUCK Help
                     ttt9 = tttBlank
                     tttWinner = 0
                     tttStart = 0
-                    tttTime = 0
+                    #tttTime = 0
                     tttTimer = 0
                     tttTimerStop = 0
 
@@ -1467,7 +1467,7 @@ DICELUCK Help
             tttWinner = 0
             tttStart = 0
             tttTimer = 0
-            tttTime = 0
+            #tttTime = 0
             tttTimerStop = 0
             threeTTT = None
             twoMMWGDL = None
@@ -1553,7 +1553,7 @@ DICELUCK Help
             tttWinner = 0
             tttStart = 0
             tttTimer = 0
-            tttTime = 0
+            #tttTime = 0
             tttTimerStop = 0
             threeTTT = None
             twoMMWGDL = None
