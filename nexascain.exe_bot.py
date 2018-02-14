@@ -222,111 +222,6 @@ async def on_member_join(member):
 @bot.event
 async def on_message(message):
     #Rank giving command
-    if message.content.upper().startswith("-RESET"):
-        reset_game = message.content.upper()[7:]
-        await bot.send_message(message.channel, reset_game)
-        if reset_game == "MASTERMIND" or reset_game == "MM":
-            guessNum = 0
-            combo = 0
-            mmplayer = 0
-            await bot.send_message(message.channel, "Mastermind has been reset!")
-
-        elif reset_game == "TICTACTOE" or reset_game == "TTT":
-            tttP1 = 0
-            tttP2 = 0
-            tttBlank = ":black_medium_square:"
-            ttt1 = tttBlank
-            ttt2 = tttBlank
-            ttt3 = tttBlank
-            ttt4 = tttBlank
-            ttt5 = tttBlank
-            ttt6 = tttBlank
-            ttt7 = tttBlank
-            ttt8 = tttBlank
-            ttt9 = tttBlank
-            tttWinner = 0
-            tttStart = 0
-            tttTimer = 0
-            tttTime = 0
-            tttTimerStop = 0
-            when_to_stop = 0
-            await bot.send_message(message.channel, "TicTacToe has been reset!")
-
-        elif reset_game == "WORDGUESS" or reset_game == "WG":
-            word = 0
-            await bot.send_message(message.channel, "Wordguess has been reset!")
-
-        elif reset_game == "DICELUCK" or reset_game == "DL":
-            totalplayers = 0
-            player1name = 0
-            player2name = 0
-            player3name = 0
-            starttestgame = 0
-            roll1 = 0
-            roll2 = 0
-            roll3 = 0
-            roll4 = 0
-            roll5 = 0
-            keepRoll = 0
-            playersTurn = 0
-            currentRoll = 0
-            lastRoll = 0
-            currentTotal = 0
-            player1total = 0
-            player2total = 0
-            player3total = 0
-            numbOfDice = 5
-            diceluckGoal = 300
-            await bot.send_message(message.channel, "DiceLuck has been reset!")
-
-        elif reset_game == "ALL":
-            word = 0
-            guessNum = 0
-            combo = 0
-            mmplayer = 0
-            totalplayers = 0
-            player1name = 0
-            player2name = 0
-            player3name = 0
-            starttestgame = 0
-            roll1 = 0
-            roll2 = 0
-            roll3 = 0
-            roll4 = 0
-            roll5 = 0
-            keepRoll = 0
-            playersTurn = 0
-            currentRoll = 0
-            lastRoll = 0
-            currentTotal = 0
-            player1total = 0
-            player2total = 0
-            player3total = 0
-            numbOfDice = 5
-            diceluckGoal = 300
-            tttP1 = 0
-            tttP2 = 0
-            tttBlank = ":black_medium_square:"
-            ttt1 = tttBlank
-            ttt2 = tttBlank
-            ttt3 = tttBlank
-            ttt4 = tttBlank
-            ttt5 = tttBlank
-            ttt6 = tttBlank
-            ttt7 = tttBlank
-            ttt8 = tttBlank
-            ttt9 = tttBlank
-            tttWinner = 0
-            tttStart = 0
-            tttTimer = 0
-            tttTime = 0
-            tttTimerStop = 0
-            when_to_stop = 0
-            await bot.send_message(message.channel, "Everything has been reset!")
-
-        else:
-            await bot.send_message(message.channel, "Please choose a game to reset, or reset all with `-Reset All`")
-
     if message.content.startswith("-role"):
         team_list = ["Minecraft Player", "Roblox Player", "Fortnite Player"]
         entered_team = message.content[6:]
@@ -1526,6 +1421,111 @@ DICELUCK Help
                 return ''.join(l)
 
             await bot.send_message(message.channel, scrambled(unscram))
+
+    if message.content.upper().startswith("-RESET"):
+        reset_game = message.content.upper()[7:]
+        await bot.send_message(message.channel, reset_game)
+        if reset_game == "MASTERMIND" or reset_game == "MM":
+            guessNum = 0
+            combo = 0
+            mmplayer = 0
+            await bot.send_message(message.channel, "Mastermind has been reset!")
+
+        elif reset_game == "TICTACTOE" or reset_game == "TTT":
+            tttP1 = 0
+            tttP2 = 0
+            tttBlank = ":black_medium_square:"
+            ttt1 = tttBlank
+            ttt2 = tttBlank
+            ttt3 = tttBlank
+            ttt4 = tttBlank
+            ttt5 = tttBlank
+            ttt6 = tttBlank
+            ttt7 = tttBlank
+            ttt8 = tttBlank
+            ttt9 = tttBlank
+            tttWinner = 0
+            tttStart = 0
+            tttTimer = 0
+            tttTime = 0
+            tttTimerStop = 0
+            when_to_stop = 0
+            await bot.send_message(message.channel, "TicTacToe has been reset!")
+
+        elif reset_game == "WORDGUESS" or reset_game == "WG":
+            word = 0
+            await bot.send_message(message.channel, "Wordguess has been reset!")
+
+        elif reset_game == "DICELUCK" or reset_game == "DL":
+            totalplayers = 0
+            player1name = 0
+            player2name = 0
+            player3name = 0
+            starttestgame = 0
+            roll1 = 0
+            roll2 = 0
+            roll3 = 0
+            roll4 = 0
+            roll5 = 0
+            keepRoll = 0
+            playersTurn = 0
+            currentRoll = 0
+            lastRoll = 0
+            currentTotal = 0
+            player1total = 0
+            player2total = 0
+            player3total = 0
+            numbOfDice = 5
+            diceluckGoal = 300
+            await bot.send_message(message.channel, "DiceLuck has been reset!")
+
+        elif reset_game == "ALL":
+            word = 0
+            guessNum = 0
+            combo = 0
+            mmplayer = 0
+            totalplayers = 0
+            player1name = 0
+            player2name = 0
+            player3name = 0
+            starttestgame = 0
+            roll1 = 0
+            roll2 = 0
+            roll3 = 0
+            roll4 = 0
+            roll5 = 0
+            keepRoll = 0
+            playersTurn = 0
+            currentRoll = 0
+            lastRoll = 0
+            currentTotal = 0
+            player1total = 0
+            player2total = 0
+            player3total = 0
+            numbOfDice = 5
+            diceluckGoal = 300
+            tttP1 = 0
+            tttP2 = 0
+            tttBlank = ":black_medium_square:"
+            ttt1 = tttBlank
+            ttt2 = tttBlank
+            ttt3 = tttBlank
+            ttt4 = tttBlank
+            ttt5 = tttBlank
+            ttt6 = tttBlank
+            ttt7 = tttBlank
+            ttt8 = tttBlank
+            ttt9 = tttBlank
+            tttWinner = 0
+            tttStart = 0
+            tttTimer = 0
+            tttTime = 0
+            tttTimerStop = 0
+            when_to_stop = 0
+            await bot.send_message(message.channel, "Everything has been reset!")
+
+        else:
+            await bot.send_message(message.channel, "Please choose a game to reset, or reset all with `-Reset All`")
 
 
 
