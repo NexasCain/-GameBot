@@ -1164,7 +1164,7 @@ DICELUCK Help
             if tttP1 == 0:
                 if tttJoiner != tttP2:
                     tttP1 = tttJoiner
-                    tttTimer = 1
+                    #tttTimer = 1
                     #tttTime = 0
                     await bot.send_message(message.channel, "Welcome to TicTacToe **" + tttP1 + "**!")
                     print ("TTT player one joined")
