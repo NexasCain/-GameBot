@@ -209,7 +209,7 @@ class Main_Commands():
 @bot.event
 async def on_ready():
     print ("Ready to go Sire!")
-    print ("I am rinning on " + bot.user.name)
+    print ("I am running on " + bot.user.name)
     await bot.change_presence(game=discord.Game(name='-bothelp'))
 
 @bot.event
@@ -1152,6 +1152,9 @@ DICELUCK Help
             ttt9 = tttBlank
             tttWinner = 0
             tttStart = 0
+            tttTime = 0
+            tttTimer = 0
+            tttTimerStop = 0
             await bot.send_message(message.channel, "The game has been reset!")
         else:
             if message.author.nick == None:
@@ -1463,7 +1466,6 @@ DICELUCK Help
             tttTimer = 0
             tttTime = 0
             tttTimerStop = 0
-            when_to_stop = 0
             threeTTT = None
             twoMMWGDL = None
             tenMM = None
@@ -1550,7 +1552,6 @@ DICELUCK Help
             tttTimer = 0
             tttTime = 0
             tttTimerStop = 0
-            when_to_stop = 0
             threeTTT = None
             twoMMWGDL = None
             tenMM = None
