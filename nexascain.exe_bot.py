@@ -1244,6 +1244,7 @@ DICELUCK Help
 
 
     if message.content.upper().startswith("1") or message.content.upper().startswith("2") or message.content.upper().startswith("3") or message.content.upper().startswith("4") or message.content.upper().startswith("5") or message.content.upper().startswith("6") or message.content.upper().startswith("7") or message.content.upper().startswith("8") or message.content.upper().startswith("9"):
+        tttBlank = ":black_medium_square:"
         x1 = ":regional_indicator_x:"
         o1 = ":regional_indicator_o:"
         if tttStart == 1:
