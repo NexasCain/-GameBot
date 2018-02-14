@@ -1424,7 +1424,7 @@ DICELUCK Help
 
     if message.content.upper().startswith("-RESET"):
         reset_game = message.content.upper()[7:]
-        await bot.send_message(message.channel, reset_game)
+        #await bot.send_message(message.channel, reset_game)
         if reset_game == "MASTERMIND" or reset_game == "MM":
             guessNum = 0
             combo = 0
