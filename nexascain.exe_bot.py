@@ -1419,19 +1419,6 @@ DICELUCK Help
 
         await bot.send_message(message.channel, scrambled(unscram))
 
-    if message.content.upper().startswith(word):
-        if message.author.name != bot.user.name:
-            await bot.send_message(message.channel, "You win! the word was " + (word))
-            opt = random.choice(words)
-            word = opt[0]
-            jumble = ""
-            unscram = opt[1]
-            def scrambled(unscram):
-                l = list(unscram)
-                random.shuffle(l)
-                return ''.join(l)
-
-            await bot.send_message(message.channel, scrambled(unscram))
 
     if message.content.upper().startswith("-RESET"):
         threeTTT = message.content.upper()[7:10]
@@ -1439,20 +1426,16 @@ DICELUCK Help
         tenMM = message.content.upper()[7:17]
         nineTTTWG = message.content.upper()[7:16]
         eightDL = message.content.upper()[7:15]
+        other = message.content.upper()[7:]
 
         #await bot.send_message(message.channel, reset_game)
-        if tenMM == "MASTERMIND" or twoMMWGDL == "MM":
+        if tenMM == "MASTERMIND" or twoMMWGDL == "MM" or other == "oof":
             guessNum = 0
             combo = 0
             mmplayer = 0
-            threeTTT = None
-            twoMMWGDL = None
-            tenMM = None
-            nineTTTWG = None
-            eightDL = None
             await bot.send_message(message.channel, "Mastermind has been reset!")
 
-        elif nineTTTWG == "TICTACTOE" or threeTTT == "TTT":
+        elif nineTTTWG == "TICTACTOE" or threeTTT == "TTT" or other == ["TICTACTOE","TTT"]:
             tttP1 = 0
             tttP2 = 0
             tttBlank = ":black_medium_square:"
@@ -1468,25 +1451,16 @@ DICELUCK Help
             tttWinner = 0
             tttStart = 0
             tttTimer = 0
-            #tttTime = 0
+            tttTime = 0
             tttTimerStop = 0
-            threeTTT = None
-            twoMMWGDL = None
-            tenMM = None
-            nineTTTWG = None
-            eightDL = None
+            when_to_stop = 0
             await bot.send_message(message.channel, "TicTacToe has been reset!")
 
-        elif nineTTTWG == "WORDGUESS" or twoMMWGDL == "WG":
+        elif nineTTTWG == "WORDGUESS" or twoMMWGDL == "WG" or other == "oof":
             word = 0
-            threeTTT = None
-            twoMMWGDL = None
-            tenMM = None
-            nineTTTWG = None
-            eightDL = None
             await bot.send_message(message.channel, "Wordguess has been reset!")
 
-        elif eightDL == "DICELUCK" or twoMMWGDL == "DL":
+        elif eightDL == "DICELUCK" or twoMMWGDL == "DL" or other == "oof":
             totalplayers = 0
             player1name = 0
             player2name = 0
@@ -1507,11 +1481,6 @@ DICELUCK Help
             player3total = 0
             numbOfDice = 5
             diceluckGoal = 300
-            threeTTT = None
-            twoMMWGDL = None
-            tenMM = None
-            nineTTTWG = None
-            eightDL = None
             await bot.send_message(message.channel, "DiceLuck has been reset!")
 
         elif threeTTT == "ALL":
@@ -1554,19 +1523,28 @@ DICELUCK Help
             tttWinner = 0
             tttStart = 0
             tttTimer = 0
-            #tttTime = 0
+            tttTime = 0
             tttTimerStop = 0
-            threeTTT = None
-            twoMMWGDL = None
-            tenMM = None
-            nineTTTWG = None
-            eightDL = None
+            when_to_stop = 0
             await bot.send_message(message.channel, "Everything has been reset!")
 
         else:
             await bot.send_message(message.channel, "Please choose a game to reset, or reset all with `-Reset All`")
 
 
+    if message.content.upper().startswith(word):
+        if message.author.name != bot.user.name:
+            await bot.send_message(message.channel, "You win! the word was " + (word))
+            opt = random.choice(words)
+            word = opt[0]
+            jumble = ""
+            unscram = opt[1]
+            def scrambled(unscram):
+                l = list(unscram)
+                random.shuffle(l)
+                return ''.join(l)
+
+            await bot.send_message(message.channel, scrambled(unscram))
 
 
 
