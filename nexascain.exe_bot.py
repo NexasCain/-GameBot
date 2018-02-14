@@ -1423,15 +1423,20 @@ DICELUCK Help
             await bot.send_message(message.channel, scrambled(unscram))
 
     if message.content.upper().startswith("-RESET"):
-        reset_game = message.content.upper()[7:]
+        threeTTT = message.content.upper()[7:10]
+        twoMMWGDL = message.content.upper()[7:9]
+        tenMM = message.content.upper()[7:17]
+        nineTTTWG = message.content.upper()[7:16]
+        eightDL = message.content.upper()[7:15]
+
         #await bot.send_message(message.channel, reset_game)
-        if reset_game == "MASTERMIND" or reset_game == "MM":
+        if tenMM == "MASTERMIND" or twoMMWGDL == "MM":
             guessNum = 0
             combo = 0
             mmplayer = 0
             await bot.send_message(message.channel, "Mastermind has been reset!")
 
-        elif reset_game == "TICTACTOE" or reset_game == "TTT":
+        elif nineTTTWG == "TICTACTOE" or threeTTT == "TTT":
             tttP1 = 0
             tttP2 = 0
             tttBlank = ":black_medium_square:"
@@ -1452,11 +1457,11 @@ DICELUCK Help
             when_to_stop = 0
             await bot.send_message(message.channel, "TicTacToe has been reset!")
 
-        elif reset_game == "WORDGUESS" or reset_game == "WG":
+        elif nineTTTWG == "WORDGUESS" or twoMMWGDL == "WG":
             word = 0
             await bot.send_message(message.channel, "Wordguess has been reset!")
 
-        elif reset_game == "DICELUCK" or reset_game == "DL":
+        elif eightDL == "DICELUCK" or twoMMWGDL == "DL":
             totalplayers = 0
             player1name = 0
             player2name = 0
@@ -1479,7 +1484,7 @@ DICELUCK Help
             diceluckGoal = 300
             await bot.send_message(message.channel, "DiceLuck has been reset!")
 
-        elif reset_game == "ALL":
+        elif threeTTT == "ALL":
             word = 0
             guessNum = 0
             combo = 0
