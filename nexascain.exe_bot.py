@@ -221,6 +221,7 @@ async def on_member_join(member):
 
 @bot.event
 async def on_message(message):
+    global tttTime
     #Rank giving command
     if message.content.startswith("-role"):
         team_list = ["Minecraft Player", "Roblox Player", "Fortnite Player"]
