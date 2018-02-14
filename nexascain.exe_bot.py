@@ -1139,6 +1139,7 @@ DICELUCK Help
         if resetTTT == "RESET":
             tttP1 = 0
             tttP2 = 0
+            tttBlank = ":black_medium_square:"
             ttt1 = tttBlank
             ttt2 = tttBlank
             ttt3 = tttBlank
@@ -1226,6 +1227,7 @@ DICELUCK Help
                 tttTimer = 0
                 tttP1 = 0
                 tttP2 = 0
+                tttBlank = ":black_medium_square:"
                 ttt1 = tttBlank
                 ttt2 = tttBlank
                 ttt3 = tttBlank
@@ -1434,6 +1436,11 @@ DICELUCK Help
             guessNum = 0
             combo = 0
             mmplayer = 0
+            threeTTT = None
+            twoMMWGDL = None
+            tenMM = None
+            nineTTTWG = None
+            eightDL = None
             await bot.send_message(message.channel, "Mastermind has been reset!")
 
         elif nineTTTWG == "TICTACTOE" or threeTTT == "TTT":
@@ -1455,10 +1462,20 @@ DICELUCK Help
             tttTime = 0
             tttTimerStop = 0
             when_to_stop = 0
+            threeTTT = None
+            twoMMWGDL = None
+            tenMM = None
+            nineTTTWG = None
+            eightDL = None
             await bot.send_message(message.channel, "TicTacToe has been reset!")
 
         elif nineTTTWG == "WORDGUESS" or twoMMWGDL == "WG":
             word = 0
+            threeTTT = None
+            twoMMWGDL = None
+            tenMM = None
+            nineTTTWG = None
+            eightDL = None
             await bot.send_message(message.channel, "Wordguess has been reset!")
 
         elif eightDL == "DICELUCK" or twoMMWGDL == "DL":
@@ -1482,6 +1499,11 @@ DICELUCK Help
             player3total = 0
             numbOfDice = 5
             diceluckGoal = 300
+            threeTTT = None
+            twoMMWGDL = None
+            tenMM = None
+            nineTTTWG = None
+            eightDL = None
             await bot.send_message(message.channel, "DiceLuck has been reset!")
 
         elif threeTTT == "ALL":
@@ -1527,6 +1549,11 @@ DICELUCK Help
             tttTime = 0
             tttTimerStop = 0
             when_to_stop = 0
+            threeTTT = None
+            twoMMWGDL = None
+            tenMM = None
+            nineTTTWG = None
+            eightDL = None
             await bot.send_message(message.channel, "Everything has been reset!")
 
         else:
