@@ -1156,7 +1156,7 @@ DICELUCK Help
             tttTimer = 0
             tttTimerStop = 0
             await bot.send_message(message.channel, "The game has been reset!")
-        else:
+        else: 
             if message.author.nick == None:
                 tttJoiner = message.author.name
             else:
@@ -1165,7 +1165,6 @@ DICELUCK Help
                 if tttJoiner != tttP2:
                     tttP1 = tttJoiner
                     tttTime = 0
-                    tttTimer = 1
                     await bot.send_message(message.channel, "Welcome to TicTacToe **" + tttP1 + "**!")
                     print ("TTT player one joined")
 
