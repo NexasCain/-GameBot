@@ -1164,7 +1164,6 @@ DICELUCK Help
             if tttP1 == 0:
                 if tttJoiner != tttP2:
                     tttP1 = tttJoiner
-                    tttTimer = 0
                     tttTime = 0
                     tttTimer = 1
                     await bot.send_message(message.channel, "Welcome to TicTacToe **" + tttP1 + "**!")
@@ -1218,6 +1217,7 @@ DICELUCK Help
 
             when_to_stop = 30
             time_left_msg = await bot.send_message(message.channel, "Time left for another player to join: " + str(when_to_stop))
+            tttTimer = 0
 
             while when_to_stop > 0:
                 if tttTimerStop == 0:
