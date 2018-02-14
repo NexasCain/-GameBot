@@ -1167,6 +1167,7 @@ DICELUCK Help
                     tttTime = 0
                     tttTimer = 1
                     await bot.send_message(message.channel, "Welcome to TicTacToe **" + tttP1 + "**!")
+                    print ("TTT player one joined")
 
             elif tttP2 == 0:
                 if tttJoiner != tttP1:
@@ -1210,14 +1211,17 @@ DICELUCK Help
 #            when_to_stop -= 1
 
     if tttTimer == 1:
+        print ("Timer start")
         if tttTime == 0:
             #Time = time.sleep(5)
+            print ("Is this necessary?")
 
 
 
             when_to_stop = 30
             time_left_msg = await bot.send_message(message.channel, "Time left for another player to join: " + str(when_to_stop))
             tttTimer = 0
+            print("testing why this loops three times")
 
             while when_to_stop > 0:
                 if tttTimerStop == 0:
